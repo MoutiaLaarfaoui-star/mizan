@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mizan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: {
+      colors: { ink: '#2b2f36', gold: '#b8943f', goldsoft: '#d1ae5c', paper: '#fbf9f3', line: '#e6dfcf' },
+      fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'], serif: ['"Playfair Display"', 'Georgia', 'serif'] }
+    } }
+  }
+</script>
+<script type="module" src="src/js/api.js"></script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="bg-ink border-b-4 border-gold px-5 py-4 flex-column lg:flex items-center justify-between gap-3">
+    <div class="flex items-center gap-2 text-goldsoft">
+        
+      <img src="img/Dark_Blue_and_Gold_Minimalist_Modern_Law_Firm_Logo-removebg-preview.png" alt="" class="w-12">
+      <span class="font-serif text-3xl leading-none">Mizan</span>
+    </div>
+    <div class="flex items-center gap-3">
+      <select id="currency" class="rounded-md bg-white text-ink text-sm px-3 py-2 border border-line focus:outline-none focus:ring-2 focus:ring-goldsoft" aria-label="Devise">
+        <option value="MAD">MAD (Dirhams)</option>
+        <option value="EUR">EUR (Euros)</option>
+        <option value="USD">USD (Dollars)</option>
+      </select>
+      <button id="refresh" class="rounded-md bg-goldsoft hover:bg-gold text-ink font-semibold text-sm px-4 py-2 focus:outline-none focus:ring-2 focus:ring-white">Actualiser</button>
+    </div>
+  </header>
+
+  <div class="p-5">
+    <p class="flex items-center gap-2 text-sm text-slate-600 mb-4">
+      <svg class="w-4 h-4 text-slate-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.4.8l3 2a1 1 0 001.2-1.6L11 9.5V6z" clip-rule="evenodd"/></svg>
+      Dernière mise à jour : <span id="updated"></span>
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+      <!-- Or -->
+      <section class="rounded-lg bg-paper border border-gold shadow-sm p-5">
+        <h2 class="text-xl font-semibold">Or (XAU)</h2>
+        <p class="mt-4 text-sm text-slate-700">Prix du gramme</p>
+        <div class="flex items-end justify-between">
+          <p class="text-3xl font-bold tracking-tight"><span id="gold-price"></span> <span class="cur"></span></p>
+          <span id="gold-chg" class="font-semibold text-green-700"></span>
+        </div>
+      </section>
+
+      <!-- Argent -->
+      <section class="rounded-lg bg-paper border border-line shadow-sm p-5">
+        <h2 class="text-xl font-semibold">Argent (XAG)</h2>
+        <p class="mt-4 text-sm text-slate-700">Prix du gramme</p>
+        <div class="flex items-end justify-between">
+          <p class="text-3xl font-bold tracking-tight"><span id="silver-price"></span> <span class="cur"></span></p>
+          <span id="silver-chg" class="font-semibold text-red-700"></span>
+        </div>
+      </section>
+
+      <!-- Estimateur -->
+      <section class="rounded-lg bg-paper border border-line shadow-sm p-5">
+        <h2 class="text-xl font-semibold">Estimateur de bijoux</h2>
+        <label for="weight" class="block mt-4 text-sm text-slate-700">Poids (grammes)</label>
+        <input id="weight" type="number" min="0" step="0.1" value="15.5" inputmode="decimal"
+          class="mt-1 w-full rounded-md bg-white border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-goldsoft">
+        <label for="metal" class="sr-only">Métal</label>
+        <select id="metal" class="mt-3 w-full rounded-md bg-white border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-goldsoft">
+          <option value="gold">Or</option>
+          <option value="silver">Argent</option>
+        </select>
+        <p class="mt-4 text-3xl font-bold tracking-tight"><span id="estimate">10,112.20</span> <span class="cur">MAD</span></p>
+      </section>
+
+      <!-- Historique -->
+      <section class="rounded-lg bg-paper border border-line shadow-sm p-5">
+        <h2 class="text-xl font-semibold">Historique (7 jours)</h2>
+        <div id="chart" class="mt-4 h-40 flex items-end justify-between gap-2 border-b border-line"></div>
+        <div id="labels" class="mt-1 flex justify-between gap-2 text-[11px] text-slate-600"></div>
+      </section>
+
+    </div>
+  </div>
+
+</body>
+</html>
