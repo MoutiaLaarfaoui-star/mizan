@@ -11,13 +11,13 @@ export async function getPrices() {
     const data = await response.json();
     console.log(data);
     
-    const res = await fetch('https://xaus.com/api/v1/chart?symbol=xau&range=5d&interval=1d&utm_source=chatgpt.com ')
+    const res = await fetch('https://xaus.com/api/v1/chart?symbol=xau&range=5d&interval=1d')
     const d = await res.json();
     console.log(d);
 
     let dernier = d.points[3].o / 31.1035;
     
-    const selv = await fetch('https://xaus.com/api/v1/chart?symbol=silver&range=5d&interval=1d&utm_source=chatgpt.com')
+    const selv = await fetch('https://xaus.com/api/v1/chart?symbol=silver&range=5d&interval=1d')
     const s = await selv.json();
     console.log(s);
 
@@ -52,29 +52,28 @@ export async function getPrices() {
     return data;
 }
 
-getPrices();
+async function getSpotApi(currency) {
 
-// export async function getPrices() {
-//     try {
-//         const response = await fetch(
-//             'https://xaus.com/api/v1/spot?currency=USD&unit=oz&compact=1'
-//         );
+    const allowedCurrency = ["MAD", "USD", "EUR"];
 
-//         if (!response.ok) {
-//             throw new Error(`HTTP Error: ${response.status}`);
-//         }
+    if (!allowedCurrency.includes(currency)) {
+        throw new Error("Unsupported Currency!");
+    }
 
-//         const data = await response.json();
+    const api = await fetch(`https://xaus.com/api/v1/spot?currency=${currency}&unit=gram`);
 
-//         console.log("Gold Price:", data.xau.price, "USD");
-//         console.log("Updated:", data.updated_at);
+    if (!api.ok) {
+        throw new Error(`HTTP Failed : ${api.status}`);
+    }
 
-//         return data;
+    const result = await api.JSON();
 
-//     } catch (error) {
-//         console.error("Error:", error);
-//     }
-// }
+    return result;
+}
+
+async function getChartApi(currency, period) {
+
+    const allowedCurrency = 
+}
 
 // getPrices();
-
