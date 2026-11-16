@@ -15,7 +15,7 @@
     } }
   }
 </script>
-<script type="module" src="src/js/api.js"></script>
+<script type="module" src="src/js/main.js"></script>
 </head>
 <body>
   <!-- Header -->
@@ -27,9 +27,9 @@
     </div>
     <div class="flex items-center gap-3">
       <select id="currency" class="rounded-md bg-white text-ink text-sm px-3 py-2 border border-line focus:outline-none focus:ring-2 focus:ring-goldsoft" aria-label="Devise">
+        <option value="USD">USD (Dollars)</option>
         <option value="MAD">MAD (Dirhams)</option>
         <option value="EUR">EUR (Euros)</option>
-        <option value="USD">USD (Dollars)</option>
       </select>
       <button id="refresh" class="rounded-md bg-goldsoft hover:bg-gold text-ink font-semibold text-sm px-4 py-2 focus:outline-none focus:ring-2 focus:ring-white">Actualiser</button>
     </div>
@@ -79,7 +79,13 @@
 
       <!-- Historique -->
       <section class="rounded-lg bg-paper border border-line shadow-sm p-5">
-        <h2 class="text-xl font-semibold">Historique (7 jours)</h2>
+        <div class="flex justify-between">
+          <h2 class="text-xl font-semibold">Historique (7 jours)</h2>
+          <select id="date" class="rounded-md bg-white text-ink text-sm px-3 py-2 border border-line focus:outline-none focus:ring-2 focus:ring-goldsoft" aria-label="Devise">
+          <option value="7jour">7jour</option>
+          <option value="1mois">30jour</option>
+        </select>
+        </div>
         <div id="chart" class="mt-4 h-40 flex items-end justify-between gap-2 border-b border-line"></div>
         <div id="labels" class="mt-1 flex justify-between gap-2 text-[11px] text-slate-600"></div>
       </section>
